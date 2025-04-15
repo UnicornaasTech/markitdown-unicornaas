@@ -22,25 +22,26 @@ import codecs
 from ._stream_info import StreamInfo
 from ._uri_utils import parse_data_uri, file_uri_to_path
 
+# Changed for unicornaas: only importing converters that are needed for the current environment, took these away:
+#    YouTubeConverter,
+#    IpynbConverter,
+#    ImageConverter,
+#    AudioConverter,
+#    ZipConverter,
+#    EpubConverter,
+#    DocumentIntelligenceConverter,
 from .converters import (
     PlainTextConverter,
     HtmlConverter,
     RssConverter,
     WikipediaConverter,
-    YouTubeConverter,
-    IpynbConverter,
     BingSerpConverter,
     PdfConverter,
     DocxConverter,
     XlsxConverter,
     XlsConverter,
     PptxConverter,
-    ImageConverter,
-    AudioConverter,
     OutlookMsgConverter,
-    ZipConverter,
-    EpubConverter,
-    DocumentIntelligenceConverter,
     CsvConverter,
 )
 
@@ -175,30 +176,30 @@ class MarkItDown:
             self.register_converter(
                 PlainTextConverter(), priority=PRIORITY_GENERIC_FILE_FORMAT
             )
-            self.register_converter(
-                ZipConverter(markitdown=self), priority=PRIORITY_GENERIC_FILE_FORMAT
-            )
+            #self.register_converter(
+            #    ZipConverter(markitdown=self), priority=PRIORITY_GENERIC_FILE_FORMAT
+            #)
             self.register_converter(
                 HtmlConverter(), priority=PRIORITY_GENERIC_FILE_FORMAT
             )
             self.register_converter(RssConverter())
             self.register_converter(WikipediaConverter())
-            self.register_converter(YouTubeConverter())
+            #self.register_converter(YouTubeConverter())
             self.register_converter(BingSerpConverter())
             self.register_converter(DocxConverter())
             self.register_converter(XlsxConverter())
             self.register_converter(XlsConverter())
             self.register_converter(PptxConverter())
-            self.register_converter(AudioConverter())
-            self.register_converter(ImageConverter())
-            self.register_converter(IpynbConverter())
+            #self.register_converter(AudioConverter())
+            #self.register_converter(ImageConverter())
+            #self.register_converter(IpynbConverter())
             self.register_converter(PdfConverter())
             self.register_converter(OutlookMsgConverter())
-            self.register_converter(EpubConverter())
+            #self.register_converter(EpubConverter())
             self.register_converter(CsvConverter())
 
             # Register Document Intelligence converter at the top of the stack if endpoint is provided
-            docintel_endpoint = kwargs.get("docintel_endpoint")
+            """docintel_endpoint = kwargs.get("docintel_endpoint")
             if docintel_endpoint is not None:
                 docintel_args: Dict[str, Any] = {}
                 docintel_args["endpoint"] = docintel_endpoint
@@ -213,7 +214,7 @@ class MarkItDown:
 
                 self.register_converter(
                     DocumentIntelligenceConverter(**docintel_args),
-                )
+                )"""
 
             self._builtins_enabled = True
         else:
